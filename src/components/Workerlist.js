@@ -18,34 +18,25 @@ const WorkerList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get(
+  async function handleWorkerlist() {
+    try {
+      const res1 = await axios.get(
         "https://worker-management-system-backend-production.up.railway.app/api/workerone"
-      )
-      .then((response) => {
-        setWorkers(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch worker data");
-        setLoading(false);
-        console.error(err);
-      });
-
-    axios
-      .get(
+      );
+      const res2 = await axios.get(
         "https://worker-management-system-backend-production.up.railway.app/api/workertwo"
-      )
-      .then((response) => {
-        setWorkers((prev) => [...prev, ...response.data]);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch worker data");
-        setLoading(false);
-        console.error(err);
-      });
+      );
+
+      return [...res1, ...res2];
+    } catch (error) {
+      setError("Failed to fetch worker data");
+      setLoading(false);
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    setWorkers(handleWorkerlist());
   }, []);
 
   if (loading) {
