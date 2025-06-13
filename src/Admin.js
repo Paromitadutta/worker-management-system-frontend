@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, Typography, Button, Stack, TextField
-} from '@mui/material';
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  Button,
+  Stack,
+  TextField,
+} from "@mui/material";
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]);
@@ -15,18 +24,24 @@ const AdminList = () => {
   }, []);
 
   const fetchAdmins = () => {
-    axios.get('http://localhost:8092/api/admin')
-      .then(response => setAdmins(response.data))
-      .catch(error => console.error('Error fetching admin data:', error));
+    axios
+      .get(
+        "https://worker-management-system-backend-production.up.railway.app/api/admin"
+      )
+      .then((response) => setAdmins(response.data))
+      .catch((error) => console.error("Error fetching admin data:", error));
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8092/api/admin/${id}`)
+    axios
+      .delete(
+        `https://worker-management-system-backend-production.up.railway.app/api/admin/${id}`
+      )
       .then(() => {
         console.log(`Admin with ID ${id} deleted.`);
         fetchAdmins();
       })
-      .catch(error => console.error('Error deleting admin:', error));
+      .catch((error) => console.error("Error deleting admin:", error));
   };
 
   const handleEdit = (admin) => {
@@ -35,7 +50,7 @@ const AdminList = () => {
       fullName: admin.fullName,
       email: admin.email,
       phNo: admin.phNo,
-      role: admin.role
+      role: admin.role,
     });
   };
 
@@ -43,18 +58,22 @@ const AdminList = () => {
     const { name, value } = e.target;
     setEditFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSave = (id) => {
-    axios.put(`http://localhost:8092/api/admin/${id}`, editFormData)
+    axios
+      .put(
+        `https://worker-management-system-backend-production.up.railway.app/api/admin/${id}`,
+        editFormData
+      )
       .then(() => {
         console.log(`Admin with ID ${id} updated.`);
         setEditRowId(null);
         fetchAdmins();
       })
-      .catch(error => console.error('Error updating admin:', error));
+      .catch((error) => console.error("Error updating admin:", error));
   };
 
   const handleCancel = () => {
@@ -63,19 +82,22 @@ const AdminList = () => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: 'auto', marginTop: 4 }}>
+    <TableContainer
+      component={Paper}
+      sx={{ maxWidth: 1000, margin: "auto", marginTop: 4 }}
+    >
       <Typography variant="h5" align="center" sx={{ paddingTop: 2 }}>
         Admin List
       </Typography>
       <Table>
-        <TableHead sx={{ backgroundColor: '#1976d2' }}>
+        <TableHead sx={{ backgroundColor: "#1976d2" }}>
           <TableRow>
-            <TableCell sx={{ color: 'white' }}>ID</TableCell>
-            <TableCell sx={{ color: 'white' }}>Full Name</TableCell>
-            <TableCell sx={{ color: 'white' }}>Email</TableCell>
-            <TableCell sx={{ color: 'white' }}>Phone</TableCell>
-            <TableCell sx={{ color: 'white' }}>Role</TableCell>
-            <TableCell sx={{ color: 'white' }}>Actions</TableCell>
+            <TableCell sx={{ color: "white" }}>ID</TableCell>
+            <TableCell sx={{ color: "white" }}>Full Name</TableCell>
+            <TableCell sx={{ color: "white" }}>Email</TableCell>
+            <TableCell sx={{ color: "white" }}>Phone</TableCell>
+            <TableCell sx={{ color: "white" }}>Role</TableCell>
+            <TableCell sx={{ color: "white" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -141,10 +163,18 @@ const AdminList = () => {
                         onChange={handleInputChange}
                         fullWidth
                       />
-                      <Button variant="contained" color="success" onClick={() => handleSave(admin.userId)}>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handleSave(admin.userId)}
+                      >
                         Save
                       </Button>
-                      <Button variant="outlined" color="secondary" onClick={handleCancel}>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={handleCancel}
+                      >
                         Cancel
                       </Button>
                     </Stack>

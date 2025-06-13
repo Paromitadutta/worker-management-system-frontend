@@ -42,7 +42,10 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8092/api/signup/add", formData);
+      const response = await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/signup/add",
+        formData
+      );
 
       alert("Signup successful!");
       console.log("Saved user:", response.data);
@@ -178,7 +181,12 @@ const Signup = () => {
             )}
 
             <Grid item xs={12}>
-              <Button variant="contained" color="primary" type="submit" fullWidth>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+              >
                 Sign Up
               </Button>
             </Grid>

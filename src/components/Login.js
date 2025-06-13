@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import {
   Container,
   TextField,
@@ -7,41 +7,44 @@ import {
   Typography,
   Box,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      setError('Email and password are required');
+      setError("Email and password are required");
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:8092/api/login/add', formData);
-      console.log('Login saved:', response.data);
-      setSuccess('Login data saved to database!');
+      const response = await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/login/add",
+        formData
+      );
+      console.log("Login saved:", response.data);
+      setSuccess("Login data saved to database!");
     } catch (err) {
-      console.error('Login failed:', err);
-      setError('Login failed. Please try again.');
+      console.error("Login failed:", err);
+      setError("Login failed. Please try again.");
     }
   };
 
@@ -51,7 +54,12 @@ const Login = () => {
         <Typography variant="h4" gutterBottom textAlign="center">
           Login
         </Typography>
-        <Box component="form" onSubmit={handleLogin} noValidate autoComplete="off">
+        <Box
+          component="form"
+          onSubmit={handleLogin}
+          noValidate
+          autoComplete="off"
+        >
           <TextField
             fullWidth
             label="Email"

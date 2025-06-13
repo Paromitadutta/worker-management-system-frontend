@@ -47,7 +47,8 @@ export default function Worker1Booking() {
     setError(false);
     setLoading(true);
 
-    if (!formData.termsAgreed) { // ✅ FIXED PROPERTY NAME
+    if (!formData.termsAgreed) {
+      // ✅ FIXED PROPERTY NAME
       setError(true);
       setMessage("You must agree to the terms and conditions.");
       setLoading(false);
@@ -55,15 +56,18 @@ export default function Worker1Booking() {
     }
 
     try {
-      await axios.post("http://localhost:8092/api/workerone/add", {
-        fullName: formData.fullName,
-        mobileNumber: Number(formData.mobileNumber),
-        emailAddress: formData.emailAddress,
-        location: formData.location,
-        dateOfBooking: formData.dateOfBooking,
-        timeSlot: formData.timeSlot,
-        duration: formData.duration,
-      });
+      await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/workerone/add",
+        {
+          fullName: formData.fullName,
+          mobileNumber: Number(formData.mobileNumber),
+          emailAddress: formData.emailAddress,
+          location: formData.location,
+          dateOfBooking: formData.dateOfBooking,
+          timeSlot: formData.timeSlot,
+          duration: formData.duration,
+        }
+      );
 
       // Navigate to payment page
       navigate("/payment", {
@@ -76,14 +80,19 @@ export default function Worker1Booking() {
       });
     } catch (err) {
       setError(true);
-      setMessage(err.response?.data?.message || "Booking failed. Please try again.");
+      setMessage(
+        err.response?.data?.message || "Booking failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+    <Container
+      maxWidth="sm"
+      sx={{ mt: 5, display: "flex", justifyContent: "center" }}
+    >
       <Card
         sx={{
           p: 3,
@@ -98,7 +107,12 @@ export default function Worker1Booking() {
         }}
       >
         <CardContent>
-          <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="primary"
+            gutterBottom
+          >
             Worker Booking
           </Typography>
           <Box
@@ -116,7 +130,13 @@ export default function Worker1Booking() {
           />
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
             Enter your details to book a Worker. <br />
-            <span style={{ fontWeight: "bold", color: "#d32f2f", fontSize: "1.1rem" }}>
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "#d32f2f",
+                fontSize: "1.1rem",
+              }}
+            >
               Every job deserves respect.
             </span>
           </Typography>

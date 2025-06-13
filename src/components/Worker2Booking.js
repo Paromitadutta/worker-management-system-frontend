@@ -41,50 +41,52 @@ export default function WorkerBookingForm() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setMessage("");
-  setError(false);
+    e.preventDefault();
+    setMessage("");
+    setError(false);
 
-  if (!formData.agreeTerms) {
-    setError(true);
-    setMessage("You must agree to the terms and conditions.");
-    return;
-  }
+    if (!formData.agreeTerms) {
+      setError(true);
+      setMessage("You must agree to the terms and conditions.");
+      return;
+    }
 
-  try {
-    const res = await axios.post(
-      "http://localhost:8092/api/workertwo/add",
-      {
-        fullName: formData.fullName,
-        mobileNumber: Number(formData.mobileNumber),
-        emailAddress: formData.emailAddress,
-        location: formData.location,
-        dateOfBooking: formData.dateOfBooking,
-        timeSlot: formData.timeSlot,
-        duration: formData.duration,
-      }
-    );
+    try {
+      const res = await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/workertwo/add",
+        {
+          fullName: formData.fullName,
+          mobileNumber: Number(formData.mobileNumber),
+          emailAddress: formData.emailAddress,
+          location: formData.location,
+          dateOfBooking: formData.dateOfBooking,
+          timeSlot: formData.timeSlot,
+          duration: formData.duration,
+        }
+      );
 
-    // Redirect to payment page and pass data (e.g., amount and formData)
-    navigate("/payment", {
-      state: {
-        formData: {
-          ...formData,
-          amount: 500, // you can make it dynamic if needed
+      // Redirect to payment page and pass data (e.g., amount and formData)
+      navigate("/payment", {
+        state: {
+          formData: {
+            ...formData,
+            amount: 500, // you can make it dynamic if needed
+          },
         },
-      },
-    });
-  } catch (err) {
-    setError(true);
-    setMessage(
-      err.response?.data?.message || "Booking failed. Please try again."
-    );
-  }
-};
-
+      });
+    } catch (err) {
+      setError(true);
+      setMessage(
+        err.response?.data?.message || "Booking failed. Please try again."
+      );
+    }
+  };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+    <Container
+      maxWidth="sm"
+      sx={{ mt: 5, display: "flex", justifyContent: "center" }}
+    >
       <Card
         sx={{
           p: 3,
@@ -99,19 +101,36 @@ export default function WorkerBookingForm() {
         }}
       >
         <CardContent>
-          <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="primary"
+            gutterBottom
+          >
             Worker Booking
           </Typography>
           <Box
             component="img"
             src="/securityguard1-icon.png"
             alt="Security Guard"
-            sx={{ width: 100, height: 100, mb: 2, borderRadius: "50%", boxShadow: "0 0 10px rgba(0,0,0,0.2)" }}
+            sx={{
+              width: 100,
+              height: 100,
+              mb: 2,
+              borderRadius: "50%",
+              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            }}
           />
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
             Enter your details to book a Worker.
             <br />
-            <span style={{ fontWeight: "bold", color: "#d32f2f", fontSize: "1.1rem" }}>
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "#d32f2f",
+                fontSize: "1.1rem",
+              }}
+            >
               Every job deserves respect.
             </span>
           </Typography>

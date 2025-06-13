@@ -42,49 +42,56 @@ export default function SecurityGuard1Booking() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setMessage("");
-  setError(false);
-  setLoading(true);
+    e.preventDefault();
+    setMessage("");
+    setError(false);
+    setLoading(true);
 
-  if (!formData.agreedTerms) {
-    setError(true);
-    setMessage("You must agree to the terms and conditions.");
-    setLoading(false);
-    return;
-  }
+    if (!formData.agreedTerms) {
+      setError(true);
+      setMessage("You must agree to the terms and conditions.");
+      setLoading(false);
+      return;
+    }
 
-  try {
-    await axios.post("http://localhost:8092/api/securityguardone/add", {
-      fullName: formData.fullName,
-      mobileNumber: Number(formData.mobileNumber),
-      emailAddress: formData.email, // corrected
-      location: formData.locationAddress, // corrected
-      dateOfBooking: formData.bookingDate, // corrected
-      timeSlot: formData.timeSlot,
-      duration: formData.duration,
-    });
+    try {
+      await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/securityguardone/add",
+        {
+          fullName: formData.fullName,
+          mobileNumber: Number(formData.mobileNumber),
+          emailAddress: formData.email, // corrected
+          location: formData.locationAddress, // corrected
+          dateOfBooking: formData.bookingDate, // corrected
+          timeSlot: formData.timeSlot,
+          duration: formData.duration,
+        }
+      );
 
-    // After successful booking, navigate to payment page
-    navigate("/payment", {
-      state: {
-        formData: {
-          ...formData,
-          amount: 500,
+      // After successful booking, navigate to payment page
+      navigate("/payment", {
+        state: {
+          formData: {
+            ...formData,
+            amount: 500,
+          },
         },
-      },
-    });
-  } catch (err) {
-    setError(true);
-    setMessage(err.response?.data?.message || "Booking failed. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
-
+      });
+    } catch (err) {
+      setError(true);
+      setMessage(
+        err.response?.data?.message || "Booking failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+    <Container
+      maxWidth="sm"
+      sx={{ mt: 5, display: "flex", justifyContent: "center" }}
+    >
       <Card
         sx={{
           p: 3,
@@ -99,19 +106,36 @@ export default function SecurityGuard1Booking() {
         }}
       >
         <CardContent>
-          <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="primary"
+            gutterBottom
+          >
             Security Guard Booking
           </Typography>
           <Box
             component="img"
             src="/securityguard1-icon.png"
             alt="Security Guard"
-            sx={{ width: 100, height: 100, mb: 2, borderRadius: "50%", boxShadow: "0 0 10px rgba(0,0,0,0.2)" }}
+            sx={{
+              width: 100,
+              height: 100,
+              mb: 2,
+              borderRadius: "50%",
+              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            }}
           />
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
             Enter your details to book a security guard.
             <br />
-            <span style={{ fontWeight: "bold", color: "#d32f2f", fontSize: "1.1rem" }}>
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "#d32f2f",
+                fontSize: "1.1rem",
+              }}
+            >
               Every job deserves respect.
             </span>
           </Typography>

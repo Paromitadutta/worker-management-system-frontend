@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import {
   Box,
   Grid,
@@ -10,11 +10,21 @@ import {
   MenuItem,
   Alert,
   Container,
-} from '@mui/material';
+} from "@mui/material";
 
 const months = [
-  '01', '02', '03', '04', '05', '06',
-  '07', '08', '09', '10', '11', '12',
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+  "08",
+  "09",
+  "10",
+  "11",
+  "12",
 ];
 
 const years = Array.from(new Array(15), (_, index) =>
@@ -23,14 +33,14 @@ const years = Array.from(new Array(15), (_, index) =>
 
 export default function PaymentForm() {
   const [paymentData, setPaymentData] = useState({
-    cardNumber: '',
-    expiryMonth: '',
-    expiryYear: '',
-    cvv: '',
-    amount: '',
+    cardNumber: "",
+    expiryMonth: "",
+    expiryYear: "",
+    cvv: "",
+    amount: "",
   });
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 
   const handleChange = (e) => {
@@ -42,27 +52,27 @@ export default function PaymentForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    setMessage("");
     setError(false);
 
     try {
       const response = await axios.post(
-        'http://localhost:8092/api/payment/process',
+        "https://worker-management-system-backend-production.up.railway.app/api/payment/process",
         paymentData
       );
-      setMessage('Payment processed successfully!');
+      setMessage("Payment processed successfully!");
       setPaymentData({
-        cardNumber: '',
-        expiryMonth: '',
-        expiryYear: '',
-        cvv: '',
-        amount: '',
+        cardNumber: "",
+        expiryMonth: "",
+        expiryYear: "",
+        cvv: "",
+        amount: "",
       });
     } catch (err) {
       console.error(err);
       setError(true);
       setMessage(
-        err.response?.data?.message || 'Payment failed. Please try again.'
+        err.response?.data?.message || "Payment failed. Please try again."
       );
     }
   };
@@ -151,7 +161,7 @@ export default function PaymentForm() {
             Pay Now
           </Button>
           {message && (
-            <Alert severity={error ? 'error' : 'success'} sx={{ mt: 3 }}>
+            <Alert severity={error ? "error" : "success"} sx={{ mt: 3 }}>
               {message}
             </Alert>
           )}

@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Box, Avatar, Button, Grid, TextField, Typography, Card, CardContent, Alert
+  Box,
+  Avatar,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Card,
+  CardContent,
+  Alert,
 } from "@mui/material";
 
 const defaultData = {
-  userId: null,  // Initially null; will fetch real data
+  userId: null, // Initially null; will fetch real data
   firstName: "",
   lastName: "",
   email: "",
@@ -22,7 +30,9 @@ export default function Profile() {
     async function fetchProfile() {
       try {
         // Replace 1 with the actual userId you want to load
-        const response = await axios.get("http://localhost:8092/api/profile/1");
+        const response = await axios.get(
+          "https://worker-management-system-backend-production.up.railway.app/api/profile/1"
+        );
 
         const data = {
           userId: response.data.userId || null,
@@ -30,7 +40,9 @@ export default function Profile() {
           lastName: response.data.lastName || "",
           email: response.data.email || "",
           role: response.data.role || "",
-          phoneNumber: response.data.phoneNumber ? response.data.phoneNumber.toString() : "",
+          phoneNumber: response.data.phoneNumber
+            ? response.data.phoneNumber.toString()
+            : "",
         };
 
         setFormData(data);
@@ -69,7 +81,7 @@ export default function Profile() {
       };
 
       const response = await axios.put(
-        `http://localhost:8092/api/profile/${formData.userId}`,
+        `https://worker-management-system-backend-production.up.railway.app/api/profile/${formData.userId}`,
         payload
       );
 
@@ -79,7 +91,9 @@ export default function Profile() {
         lastName: response.data.lastName || "",
         email: response.data.email || "",
         role: response.data.role || "",
-        phoneNumber: response.data.phoneNumber ? response.data.phoneNumber.toString() : "",
+        phoneNumber: response.data.phoneNumber
+          ? response.data.phoneNumber.toString()
+          : "",
       };
 
       localStorage.setItem("profileData", JSON.stringify(data));
@@ -88,7 +102,9 @@ export default function Profile() {
     } catch (err) {
       console.error("Update error:", err);
       setError(true);
-      setMessage(err.response?.data?.message || "Failed to update profile. Try again.");
+      setMessage(
+        err.response?.data?.message || "Failed to update profile. Try again."
+      );
     }
   };
 
@@ -103,8 +119,18 @@ export default function Profile() {
     <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
       <Card sx={{ width: 500, p: 3, boxShadow: 3 }}>
         <CardContent>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
-            <Avatar src="/imageSlider/userprofile.jpg" sx={{ width: 80, height: 80, mb: 1 }} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              mb: 2,
+            }}
+          >
+            <Avatar
+              src="/imageSlider/userprofile.jpg"
+              sx={{ width: 80, height: 80, mb: 1 }}
+            />
             <Typography variant="h5">Edit Profile</Typography>
           </Box>
 

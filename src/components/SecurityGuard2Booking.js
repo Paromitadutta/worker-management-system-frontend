@@ -55,15 +55,18 @@ export default function SecurityGuard2Booking() {
     }
 
     try {
-      await axios.post("http://localhost:8092/api/securityguardtwo/add", {
-        fullName: formData.fullName,
-        mobileNumber: Number(formData.mobileNumber),
-        emailAddress: formData.emailAddress,
-        location: formData.location,
-        dateOfBooking: formData.dateOfBooking,
-        timeSlot: formData.timeSlot,
-        duration: formData.duration,
-      });
+      await axios.post(
+        "https://worker-management-system-backend-production.up.railway.app/api/securityguardtwo/add",
+        {
+          fullName: formData.fullName,
+          mobileNumber: Number(formData.mobileNumber),
+          emailAddress: formData.emailAddress,
+          location: formData.location,
+          dateOfBooking: formData.dateOfBooking,
+          timeSlot: formData.timeSlot,
+          duration: formData.duration,
+        }
+      );
 
       navigate("/payment", {
         state: {
@@ -75,14 +78,19 @@ export default function SecurityGuard2Booking() {
       });
     } catch (err) {
       setError(true);
-      setMessage(err.response?.data?.message || "Booking failed. Please try again.");
+      setMessage(
+        err.response?.data?.message || "Booking failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+    <Container
+      maxWidth="sm"
+      sx={{ mt: 5, display: "flex", justifyContent: "center" }}
+    >
       <Card
         sx={{
           p: 3,
@@ -97,18 +105,36 @@ export default function SecurityGuard2Booking() {
         }}
       >
         <CardContent>
-          <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="primary"
+            gutterBottom
+          >
             Security Guard2 Booking
           </Typography>
           <Box
             component="img"
             src="/securityguard1-icon.png"
             alt="Security Guard"
-            sx={{ width: 100, height: 100, mb: 2, borderRadius: "50%", boxShadow: "0 0 10px rgba(0,0,0,0.2)" }}
+            sx={{
+              width: 100,
+              height: 100,
+              mb: 2,
+              borderRadius: "50%",
+              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            }}
           />
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-            Enter your details to book a Security Guard.<br />
-            <span style={{ fontWeight: "bold", color: "#d32f2f", fontSize: "1.1rem" }}>
+            Enter your details to book a Security Guard.
+            <br />
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "#d32f2f",
+                fontSize: "1.1rem",
+              }}
+            >
               Every job deserves respect.
             </span>
           </Typography>
@@ -199,7 +225,12 @@ export default function SecurityGuard2Booking() {
 
             <FormControlLabel
               control={
-                <Checkbox name="agree" checked={formData.agree} onChange={handleChange} required />
+                <Checkbox
+                  name="agree"
+                  checked={formData.agree}
+                  onChange={handleChange}
+                  required
+                />
               }
               label="I agree to the terms and conditions"
             />
