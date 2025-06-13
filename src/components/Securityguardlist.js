@@ -82,8 +82,8 @@ const SecurityList = () => {
         <TableHead sx={{ backgroundColor: "#1976d2" }}>
           <TableRow>
             <TableCell sx={{ color: "white" }}>User ID</TableCell>
-            <TableCell sx={{ color: "white" }}>First Name</TableCell>
-            <TableCell sx={{ color: "white" }}>Last Name</TableCell>
+            <TableCell sx={{ color: "white" }}>Full Name</TableCell>
+            <TableCell sx={{ color: "white" }}>Email Address</TableCell>
             <TableCell sx={{ color: "white" }}>Phone Number</TableCell>
           </TableRow>
         </TableHead>
@@ -91,9 +91,9 @@ const SecurityList = () => {
           {guards.map((guard) => (
             <TableRow key={guard.userId} hover>
               <TableCell>{guard.userId}</TableCell>
-              <TableCell>{guard.firstName}</TableCell>
-              <TableCell>{guard.lastName}</TableCell>
-              <TableCell>{guard.phNo}</TableCell>
+              <TableCell>{guard.fullName}</TableCell>
+              <TableCell>{guard.emailAddress}</TableCell>
+              <TableCell>{guard.mobilenumber}</TableCell>
             </TableRow>
           ))}
         </TableBody>
