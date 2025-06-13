@@ -93,7 +93,7 @@ const SecurityList = () => {
               <TableCell>{guard.userId}</TableCell>
               <TableCell>{guard.fullName}</TableCell>
               <TableCell>{guard.emailAddress}</TableCell>
-              <TableCell>{guard.mobilenumber}</TableCell>
+              <TableCell>{guard.mobileNumber}</TableCell>
             </TableRow>
           ))}
         </TableBody>
