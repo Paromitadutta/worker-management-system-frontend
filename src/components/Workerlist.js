@@ -46,7 +46,7 @@ const WorkerList = () => {
         setLoading(false);
         console.error(err);
       });
-  }, [workers]);
+  }, [setWorkers]);
 
   if (loading) {
     return (
