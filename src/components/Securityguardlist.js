@@ -21,10 +21,24 @@ const SecurityList = () => {
   useEffect(() => {
     axios
       .get(
-        "https://worker-management-system-backend-production.up.railway.app/api/security"
+        "https://worker-management-system-backend-production.up.railway.app/api/securityguardone"
       )
       .then((response) => {
         setGuards(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Failed to fetch security data");
+        setLoading(false);
+        console.error(err);
+      });
+
+    axios
+      .get(
+        "https://worker-management-system-backend-production.up.railway.app/api/securityguardtwo"
+      )
+      .then((response) => {
+        setGuards((prev) => [...prev, ...response.data]);
         setLoading(false);
       })
       .catch((err) => {
