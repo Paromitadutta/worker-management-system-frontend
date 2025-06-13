@@ -27,7 +27,7 @@ const WorkerList = () => {
         "https://worker-management-system-backend-production.up.railway.app/api/workertwo"
       );
 
-      return [...res1, ...res2];
+      return [...res1.data, ...res2.data];
     } catch (error) {
       setError("Failed to fetch worker data");
       setLoading(false);
@@ -36,7 +36,8 @@ const WorkerList = () => {
   }
 
   useEffect(() => {
-    setWorkers(handleWorkerlist());
+    const data = handleWorkerlist();
+    setWorkers(data);
   }, []);
 
   if (loading) {
