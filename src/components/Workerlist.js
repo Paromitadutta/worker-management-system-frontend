@@ -24,22 +24,20 @@ const WorkerList = () => {
         "https://worker-management-system-backend-production.up.railway.app/api/workerone"
       )
       .then((response) => {
-        setWorkers(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch worker data");
-        setLoading(false);
-        console.error(err);
-      });
-
-    axios
-      .get(
-        "https://worker-management-system-backend-production.up.railway.app/api/workertwo"
-      )
-      .then((response) => {
-        setWorkers((prev) => [...prev, ...response.data]);
-        setLoading(false);
+        const res1 = response.data;
+        axios
+          .get(
+            "https://worker-management-system-backend-production.up.railway.app/api/workertwo"
+          )
+          .then((response) => {
+            setWorkers((prev) => [...res1, ...response.data]);
+            setLoading(false);
+          })
+          .catch((err) => {
+            setError("Failed to fetch worker data");
+            setLoading(false);
+            console.error(err);
+          });
       })
       .catch((err) => {
         setError("Failed to fetch worker data");
