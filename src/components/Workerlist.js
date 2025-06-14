@@ -44,7 +44,7 @@ const WorkerList = () => {
         setLoading(false);
         console.error(err);
       });
-  }, []);
+  });
 
   if (loading) {
     return (

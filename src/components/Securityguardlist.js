@@ -24,21 +24,19 @@ const SecurityList = () => {
         "https://worker-management-system-backend-production.up.railway.app/api/securityguardone"
       )
       .then((response) => {
-        setGuards(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch security data");
-        setLoading(false);
-        console.error(err);
-      });
-
-    axios
-      .get(
-        "https://worker-management-system-backend-production.up.railway.app/api/securityguardtwo"
-      )
-      .then((response) => {
-        setGuards((prev) => [...prev, ...response.data]);
+        const res1 = response.data;
+        axios
+          .get(
+            "https://worker-management-system-backend-production.up.railway.app/api/securityguardtwo"
+          )
+          .then((response) => {
+            setGuards((prev) => [...res1, ...response.data]);
+          })
+          .catch((err) => {
+            setError("Failed to fetch security data");
+            setLoading(false);
+            console.error(err);
+          });
         setLoading(false);
       })
       .catch((err) => {
